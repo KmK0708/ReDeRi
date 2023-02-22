@@ -121,3 +121,4 @@ void AEnemy::OnFire()
 {
 	enemyAnim->OnMyAttack(TEXT("Shoot"));
 }
+

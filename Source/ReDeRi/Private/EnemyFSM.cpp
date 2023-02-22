@@ -93,6 +93,8 @@ void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 // 대기 상태
 void UEnemyFSM::IdleState()
 {
+	if (bHitByPlayer == true)
+	{
 	// 적의 플레이어 인지범위 생성
 	FCollisionShape shape;
 	shape.SetSphere(3000.0f);
@@ -104,31 +106,40 @@ void UEnemyFSM::IdleState()
 	GetWorld()->OverlapMultiByChannel(Overlaps, location, FQuat::Identity, ECollisionChannel::ECC_Pawn, shape);
 	// 플레이어가 인지범위에 있으면
 
-	// 플레이어가 범위 내에 없으면
-	if (Overlaps.Num() == 0)
+		// 플레이어가 범위 내에 없으면
+		if (Overlaps.Num() == 0)
+		{
+			// 상태를 대기 상태로 변경
+			mState = EEnemyState::Idle;
+			me->enemyAnim->State = mState;
+			// 반복문 종료
+			return;
+		}
+		auto player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+		for (auto overlap : Overlaps)
+		{
+			// 플레이어 타입으로 캐스팅
+			// 플레이어가 존재하면
+			if (overlap.GetActor() == player)
+			{
+				target = player;
+				// 플레이어를 타깃으로 설정
+				// 상태를 이동 상태로 변경
+				mState = EEnemyState::Move;
+				me->enemyAnim->State = mState;
+				//Cast<AEnemy>(GetOwner())->enemyAnim->State = mState
+				// 반복문 종료
+				break;
+			}
+		}
+	}
+	else
 	{
 		// 상태를 대기 상태로 변경
 		mState = EEnemyState::Idle;
 		me->enemyAnim->State = mState;
 		// 반복문 종료
 		return;
-	}
-	auto player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	for (auto overlap : Overlaps)
-	{
-		// 플레이어 타입으로 캐스팅
-		// 플레이어가 존재하면
-		if (overlap.GetActor() == player)
-		{
-			target = player;
-			// 플레이어를 타깃으로 설정
-			// 상태를 이동 상태로 변경
-			mState = EEnemyState::Move;
-			me->enemyAnim->State = mState;
-			//Cast<AEnemy>(GetOwner())->enemyAnim->State = mState
-			// 반복문 종료
-			break;
-		}
 	}
 }
 
@@ -259,6 +270,7 @@ void UEnemyFSM::OnDamageProcess(int32 damage)
 	else
 	{
 		// 상태를 피격 상태로 변경
+		bHitByPlayer = true;
 		mState = EEnemyState::Damage;
 		me->enemyAnim->State = mState;
 	}

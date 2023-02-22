@@ -110,7 +110,8 @@ public:
 
 	UPROPERTY()
 		TArray<AActor*> bpEnemySpawner;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FSM")
+		bool bHitByPlayer = false;
 public:
 	// 체력을 표현 하고싶다.
 	int32 EnemyHealth;
