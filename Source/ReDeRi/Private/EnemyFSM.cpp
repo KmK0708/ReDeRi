@@ -73,8 +73,8 @@ void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 // 대기 상태
 void UEnemyFSM::IdleState()
 {
-	if (bHitByPlayer == true)
-	{
+	
+	
 	// 적의 플레이어 인지범위 생성
 	FCollisionShape shape;
 	shape.SetSphere(3000.0f);
@@ -112,15 +112,7 @@ void UEnemyFSM::IdleState()
 				break;
 			}
 		}
-	}
-	else
-	{
-		// 상태를 대기 상태로 변경
-		mState = EEnemyState::Idle;
-		me->enemyAnim->State = mState;
-		// 반복문 종료
-		return;
-	}
+	
 }
 
 // 이동 상태
@@ -250,7 +242,6 @@ void UEnemyFSM::OnDamageProcess(int32 damage)
 	else
 	{
 		// 상태를 피격 상태로 변경
-		bHitByPlayer = true;
 		mState = EEnemyState::Damage;
 		me->enemyAnim->State = mState;
 	}
