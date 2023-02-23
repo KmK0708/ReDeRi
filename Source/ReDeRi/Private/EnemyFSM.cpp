@@ -5,7 +5,6 @@
 #include "Enemy.h"
 #include "RedPlayer.h"
 #include <Kismet/GameplayStatics.h>
-#include <Components/CapsuleComponent.h>
 #include <Components/SkeletalMeshComponent.h>
 #include "Bullet.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -40,25 +39,6 @@ void UEnemyFSM::BeginPlay()
 
 	// AAIController 타입으로 캐스팅
 	AI = Cast<AAIController>(me->GetController());
-
-	//// 애너미 소환
-	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemySpawnToKill::StaticClass(), bpEnemySpawner);
-	//for (int i = 0; i < bpEnemySpawner.Num(); i++)
-	//{
-	//	AEnemySpawnToKill* emptySpawner = nullptr;
-	//	enemySpawns.Add(emptySpawner);
-	//}
-
-	//for (int i = 0; i < bpEnemySpawner.Num(); i++)
-	//{
-	//	auto spawn = Cast<AEnemySpawnToKill>(bpEnemySpawner[i]);
-	//	enemySpawns[i] = spawn;
-	//	if (enemySpawns[i]->NumEnemy == 0)
-	//	{
-	//		enemySpawns[i]->isSpawn = true;
-	//	}
-	//}
-	//
 }
 
 
@@ -178,7 +158,7 @@ void UEnemyFSM::AttackState()
 	if (currentTime > AttackDelayTime)
 	{
 		// Enemy.cpp에있는 OnFire 함수를 호출
-		me->OnFire();
+		me->enemyAnim->OnMyAttack(TEXT("GunShoot"));
 		// 3. 공격소리 재생
 		// Enemy에있는 GunMeshComp를 이용해서 공격
 		FTransform transform = me->GunMeshComp->GetSocketTransform("SK_Wep_Rifle_01_SlideSocket");
@@ -275,16 +255,3 @@ void UEnemyFSM::OnDamageProcess(int32 damage)
 		me->enemyAnim->State = mState;
 	}
 }
-
-//void UEnemyFSM::MinusNumEnemies()
-//{
-//	AEnemySpawnToKill* EnemySpawner = Cast<AEnemySpawnToKill>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemySpawnToKill::StaticClass()));
-//	// 만약 EnemySpawnToKill에서 NumEnemy가 감소되면
-//	if (EnemySpawner)
-//	{
-//		if (EnemySpawner->NumEnemy <= 0)
-//		{
-//
-//		}
-//	}
-//}

@@ -19,30 +19,23 @@ public:
 	virtual void NativeBeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		EEnemyState State;
+	EEnemyState State;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool bAttackPlay;
+	bool bAttackPlay;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool bEnemyDieEnd;
+	bool bEnemyDieEnd;
 
-		UFUNCTION()
-			void AnimNotify_OnHit();
+	UPROPERTY(EditAnywhere)
+	class UAnimMontage* AttackMontage;
+	
+	UFUNCTION(BlueprintCallable)
+	void OnMyAttack(FName SectionName);
 
-		// 적 공격 애니메이션 노티파이
-		UFUNCTION()
-			void AnimNotify_OnAttack();
+	UPROPERTY()
+	class AEnemy* me;
 
-		UPROPERTY(EditAnywhere)
-			class UAnimMontage* AttackMontage;
-
-		UFUNCTION(BlueprintCallable)
-			void OnMyAttack(FName SectionName);
-
-		UPROPERTY()
-			class AEnemy* me;
-
-		UPROPERTY(EditAnywhere, BlueprintReadOnly)
-			int pose;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int pose;
 };

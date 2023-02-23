@@ -507,7 +507,7 @@ void ARedPlayer::DestroyEnemy()
 
 		UEnemyFSM* fsm = Cast<UEnemyFSM>(enemies[i]->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-		//fsm->OnDamageProcess(100);
+		fsm->OnDamageProcess(100);
 
 		FVector loc = GetActorLocation();
 
@@ -622,7 +622,7 @@ void ARedPlayer::FirePistol()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			//fsm->OnDamageProcess(10);
+			fsm->OnDamageProcess(10);
 		}
 	}
 
@@ -661,7 +661,7 @@ void ARedPlayer::FireRifle()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			//fsm->OnDamageProcess(25);
+			fsm->OnDamageProcess(25);
 		}
 	}
 

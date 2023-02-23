@@ -41,7 +41,7 @@ public:
 	void StartFire();
 
 	void DestroySelf();
-
+	
 	UPROPERTY()
 	UNiagaraComponent* niagaraFloorComp;
 

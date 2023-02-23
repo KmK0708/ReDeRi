@@ -8,7 +8,6 @@
 #include "Bullet.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "PhysicsEngine/PhysicsAsset.h"
 #include "Engine/SkeletalMesh.h"
 // Sets default values
 AEnemy::AEnemy()
@@ -60,21 +59,13 @@ AEnemy::AEnemy()
 		RevolverMeshComp->SetRelativeLocationAndRotation(FVector(-10.304565f, -4.293165f, -3.691982f), FRotator(20.551983f, -76.14f, 159.704f));
 	}
 
-
 	// 애너미에님 컨스트럭터헬퍼스
 	ConstructorHelpers::FClassFinder<UAnimInstance> TempAnim(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprint/enemy/ABP_Enemy.ABP_Enemy_C'"));
 	if (TempAnim.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(TempAnim.Class);
 	}
-
-	// 애너미에님 컨스트럭터헬퍼스
-	//ConstructorHelpers::FClassFinder<UAnimInstance> TempAnim2(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprint/Enemy/ABP_Enemy2.ABP_Enemy2_C'"));
-	//if (TempAnim.Succeeded())
-	//{
-	//	GetMesh()->SetAnimInstanceClass(TempAnim2.Class);
-	//}
-
+	
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
@@ -88,7 +79,6 @@ void AEnemy::OnDeath()
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	RevolverMeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GunMeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
 }
 
 // Called when the game starts or when spawned
@@ -98,15 +88,12 @@ void AEnemy::BeginPlay()
 
 	// 애너미애님 겟매쉬 캐스트
 	enemyAnim = Cast<UEnemyAnim>(GetMesh()->GetAnimInstance());
-
 }
 
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-
 
 }
 
@@ -117,8 +104,7 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void AEnemy::OnFire()
-{
-	enemyAnim->OnMyAttack(TEXT("Shoot"));
-}
-
+//void AEnemy::OnFire()
+//{
+//	enemyAnim->OnMyAttack(TEXT("GunShoot"));
+//}

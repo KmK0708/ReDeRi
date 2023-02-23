@@ -8,6 +8,7 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Components/SphereComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFireBottleFloor::AFireBottleFloor()
@@ -58,7 +59,7 @@ void AFireBottleFloor::OnOverlap()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			//fsm->OnDamageProcess(1);
+			fsm->OnDamageProcess(1);
 		}
 		auto player = Cast<ARedPlayer>(hitInfo.GetActor());
 		if (player != nullptr)

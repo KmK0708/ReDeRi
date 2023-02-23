@@ -160,9 +160,10 @@ void AReDeRiGameModeBase::CrossHairchange()
 
 void AReDeRiGameModeBase::OnBlood()
 {
+	bool bInView = blood_UI->IsInViewport();
 	if (blood_UI != nullptr)
 	{
-		if (HP < 50.0f)
+		if (HP < 50.0f && bInView != true)
 		{
 			blood_UI->AddToViewport();
 		}
@@ -210,7 +211,10 @@ void AReDeRiGameModeBase::GameOver()
 
 		UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(true);
 		GetWorld()->GetFirstPlayerController()->AController::SetIgnoreLookInput(true);
-		gameover_UI->AddToViewport();
+		if(gameover_UI->IsInViewport() != true)
+		{
+			gameover_UI->AddToViewport();
+		}
 	}
 }
 

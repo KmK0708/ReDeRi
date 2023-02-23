@@ -34,13 +34,15 @@ public:
 
 	// 총알 데미지
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BulletSettings")
-		float Damage = 15.0f;
+	float Damage = 15.0f;
 
 	// 총알 데미지 함수
 	UFUNCTION()
-		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	void OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	void DestroyMyself();
 
 	// 총알 스치는 사운드
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "BulletSettings")
-		USoundBase* BulletWhipSound;
+	USoundBase* BulletWhipSound;
 };

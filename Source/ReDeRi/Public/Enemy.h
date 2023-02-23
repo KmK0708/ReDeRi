@@ -35,24 +35,25 @@ public:
 public:
 	// 적 AI 관리 컴포넌트 클래스
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "FMSComponent")
-		class UEnemyFSM* myEnemyFSM;
+	class UEnemyFSM* myEnemyFSM;
 
 	// 에너미 에니매이션
 	UPROPERTY()
-		class UEnemyAnim* enemyAnim;
+	class UEnemyAnim* enemyAnim;
 
 	// 에너미 총발사 이벤트
-	UFUNCTION()
-		void OnFire();
+	//UFUNCTION()
+	//void OnFire();
 
 	//공격사운드
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
-		USoundBase* EnemyAttackSound;
+	USoundBase* EnemyAttackSound;
 
 	// 총 메쉬
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemySettings")
-		class USkeletalMeshComponent* GunMeshComp;
+	class USkeletalMeshComponent* GunMeshComp;
+
 	// 리볼버 메쉬
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "EnemySettings")
-		class USkeletalMeshComponent* RevolverMeshComp;
+	class USkeletalMeshComponent* RevolverMeshComp;
 };
